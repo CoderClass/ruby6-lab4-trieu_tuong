@@ -1,9 +1,7 @@
 <h1 class="text-center">Welcome to <%= @room.name %></h1>
 <div class="col-md-8 col-md-offset-2">
-	<div class="list-group">
-		<% @messages.each do |message| %>
-			<li> <%= message.username %>: <%= message.content %> </li>
-		<% end %>
+	<div class="list-group messages">
+		<%= render @messages %>
 	</ul>
 </div>
 
@@ -20,3 +18,10 @@
 		<%= f.submit "Send", class: "btn btn-primary" %>
 	<% end %>	
 </div>
+
+<script type="text/javascript">
+	setInterval(function(){
+		url = "<%= room_messages_url(@room) %>";
+		updateMessagesViaJSON(url);
+	}, 3000);
+</script>
