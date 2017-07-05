@@ -1,0 +1,8 @@
+<h1 class="text-center">Welcome to <%= @room.name %></h1>
+<div class="col-md-8 col-md-offset-2">
+	<ul>
+		<% @room.messages.each do |message| %>
+			<li> <%= message.username %>: <%= message.content %> </li>
+		<% end %>
+	</ul>
+</div>

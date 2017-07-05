@@ -1,18 +1,19 @@
-<h1>Welcome</h1>
-<p>This is a basic chat app</p>
+<div class="container">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="list-group" style="margin-top: 50px;">
+		<% @rooms.each do |room| %>
+			
+				<%= link_to room.name, room_messages_path(room), class: "list-group-item list-group-item-action" %>
+			
+		<% end %>
+		</div>
 
-<ul>
-<% @rooms.each do |room| %>
-	
-		<li><%= room.name %></li>
-	
-<% end %>
-</ul>
-
-<%= form_for Room.new do |f| %>
-	<div class="form-group">
-		<%= f.label :name %>
-		<%= f.text_field :name, class: "form-control" %>
+		<%= form_for Room.new do |f| %>
+			<div class="form-group">
+				<%= f.label :name %>
+				<%= f.text_field :name, class: "form-control" %>
+			</div>
+			<%= f.submit nil, class: "btn btn-primary" %>
+		<% end %>
 	</div>
-	<%= f.submit nil, class: "btn btn-primary" %>
-<% end %>
+</div>
