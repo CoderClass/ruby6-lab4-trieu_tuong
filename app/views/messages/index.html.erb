@@ -18,10 +18,3 @@
 		<%= f.submit "Send", class: "btn btn-primary" %>
 	<% end %>	
 </div>
-
-<script type="text/javascript">
-	setInterval(function(){
-		url = "<%= room_messages_url(@room) %>";
-		updateMessagesViaJSON(url);
-	}, 3000);
-</script>

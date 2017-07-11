@@ -12,18 +12,20 @@ class MessagesController < ApplicationController
 
 
 	def create
-		@message = Message.new(message_params)
-		@message.room_id = params[:room_id]
-		if @message.save
-			redirect_to room_messages_path(@message.room_id)
-		else
-			flash[:error] = "Errors: #{@message.errors.full_messages.to_sentence}"
-			redirect_back fallback_location: room_messages_path(@message.room_id)
-		end
+		@room = Room.find(params[:room_id])
+		@message = @room.messages.build(message_params)
+		@message.username = current_user
+		@message.save!
+		ActionCable.server.broadcast 'messages', message: render_message(@message)
+		head :ok
 	end
 
 	private
 	def message_params
 		params.require(:message).permit(:content, :username)
+	end
+
+	def render_message(message)
+		"<li> #{message.username}: #{message.content} </li>"
 	end
 end
